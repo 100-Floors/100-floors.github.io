@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>100 Floors — SAO Game Development</title>
+  <meta name="description" content="A fan-made Sword Art Online MMORPG. Coming soon." />
+  <meta property="og:title" content="100 Floors — SAO Game Development" />
+  <meta property="og:description" content="A fan-made Sword Art Online MMORPG. Coming soon." />
+  <meta property="og:image" content="https://sao-aincrad.netlify.app/preview.png" />
+  <meta property="og:url" content="https://sao-aincrad.netlify.app" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =================== LINK START SCREEN =================== -->
+  <div class="link-start" id="linkStart">
+    <div class="link-content">
+      <p class="link-jp">ソードアート・オンライン</p>
+      <p class="link-text" id="linkText">LINK START</p>
+      <div class="link-bar">
+        <div class="link-fill" id="linkFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== TRAILER OVERLAY =================== -->
+  <div class="trailer-overlay" id="trailerOverlay">
+    <button class="trailer-close" id="trailerClose">✕ CLOSE</button>
+    <iframe id="trailerFrame" src="" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <!-- =================== LOGIN =================== -->
+  <section class="login" id="login">
+    <article class="login-card">
+      <span class="corner tl"></span>
+      <span class="corner tr"></span>
+      <span class="corner bl"></span>
+      <span class="corner br"></span>
+
+      <p class="login-jp">ソードアート・オンライン</p>
+      <p class="login-kicker">// SECURE LINK · v0.0.7</p>
+      <h1 class="login-title">
+        <span>SYSTEM</span>
+        <span>LOGIN</span>
+      </h1>
+      <p class="login-sub">Enter your name, Player.</p>
+
+      <form id="loginForm" class="login-form">
+        <input type="text" id="nameInput" class="login-input" placeholder="Your name..." maxlength="20" required />
+        <button type="submit" class="btn-login">▶ ENTER AINCRAD</button>
+        <button type="button" class="btn-guest" id="guestBtn">Continue as Guest</button>
+      </form>
+    </article>
+  </section>
+
+  <!-- =================== MAIN SITE =================== -->
+  <div class="site" id="site" hidden>
+
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <aside class="sys-window sys-tr">
+      <p class="sys-line big mono"><span id="clockText">00:00:00</span></p>
+      <p class="sys-line"><span id="dateText">—</span></p>
+      <p class="sys-line small">// <span id="yearText">—</span></p>
+    </aside>
+
+    <aside class="sys-window sys-tl">
+      <p class="sys-line">FLOOR <span>01</span> / 100</p>
+      <p class="sys-line">ZONE: STARTING</p>
+      <p class="sys-line dot-pulse">● ONLINE</p>
+    </aside>
+
+    <!-- =================== NAV =================== -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="#home" class="logo">
+          <span class="logo-icon">⚔</span>
+          <span class="logo-text">AINCRAD<span class="dot-sep">.</span>DEV</span>
+        </a>
+
+        <button class="menu-btn" id="menuBtn">
+          <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#trailer-section">Trailer</a></li>
+          <li><a href="#updates">Dev Log</a></li>
+          <li><a href="#discord">Discord</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li>
+            <button class="logout-btn" id="logoutBtn">
+              <span id="navUserName">Player</span> ⏻
+            </button>
+          </li>
+          <li><a href="https://discord.gg/RpWcRSUhUe" target="_blank" rel="noopener" class="btn-discord">⚡ Join</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+
+      <!-- =================== HERO =================== -->
+      <section id="home" class="hero">
+        <article class="hero-content">
+          <p class="kicker-jp">ソードアート・オンライン · ファンメイド</p>
+          <p class="kicker">// LINK ESTABLISHED · v0.0.7</p>
+          <h1 class="title">
+            <span class="line">WELCOME,</span>
+            <span class="line name" id="userNameDisplay">PLAYER</span>
+          </h1>
+          <p class="subtitle">
+            Three devs building a <strong>Sword Art Online</strong> inspired MMORPG.
+            Welcome to Floor 1 of Aincrad.
+          </p>
+
+          <div class="divider">
+            <span></span>
+            <span class="divider-icon">⚔</span>
+            <span></span>
+          </div>
+
+          <div class="hero-btns">
+            <a href="#updates" class="btn-main">Enter Dev Log</a>
+            <button class="btn-trailer" id="watchTrailerBtn">▶ Watch Trailer</button>
+            <a href="https://discord.gg/RpWcRSUhUe" target="_blank" rel="noopener" class="btn-second">Join Party →</a>
+          </div>
+
+          <!-- =================== TBA RELEASE =================== -->
+          <section class="tba-section">
+            <p class="tba-label">// RELEASE DATE</p>
+            <h2 class="tba-title">COMING SOON™</h2>
+            <p class="tba-sub">We're students building a dream. It'll be ready when it's ready.</p>
+          </section>
+
+          <section class="stats">
+            <article class="stat">
+              <p class="stat-label">VERSION</p>
+              <p class="stat-value">v0.0.7</p>
+            </article>
+            <article class="stat">
+              <p class="stat-label">DAYS IN DEV</p>
+              <p class="stat-value"><span id="days">6</span><small>d</small></p>
+            </article>
+            <article class="stat">
+              <p class="stat-label">DISCORD</p>
+              <p class="stat-value"><span id="discordCount">—</span><small>members</small></p>
+            </article>
+            <article class="stat">
+              <p class="stat-label">TIME</p>
+              <p class="stat-value mono" id="clockMid">00:00:00</p>
+            </article>
+          </section>
+        </article>
+      </section>
+
+      <!-- =================== TRAILER SECTION =================== -->
+      <section id="trailer-section" class="section trailer-section-block">
+        <header class="sec-head">
+          <p class="kicker">// CINEMATIC</p>
+          <h2 class="sec-title">The Trailer</h2>
+          <p class="sec-sub">See what we're building. Fan-made. Real passion.</p>
+        </header>
+
+        <div class="trailer-preview">
+          <div class="trailer-thumb" id="trailerThumb">
+            <div class="trailer-thumb-glow"></div>
+            <div class="trailer-play-ring">
+              <button class="trailer-play-btn" id="trailerPlayBtn2">▶</button>
+            </div>
+            <div class="trailer-thumb-text">
+              <p class="trailer-thumb-title">AINCRAD — Fan Trailer</p>
+              <p class="trailer-thumb-sub">LINK START · 2026</p>
+            </div>
+            <!-- Decorative corner marks -->
+            <span class="t-corner tl"></span>
+            <span class="t-corner tr"></span>
+            <span class="t-corner bl"></span>
+            <span class="t-corner br"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================== UPDATES =================== -->
+      <section id="updates" class="section">
+        <header class="sec-head">
+          <p class="kicker">// DEV LOG</p>
+          <h2 class="sec-title">Patch Notes</h2>
+          <p class="sec-sub">Every step forward, documented.</p>
+        </header>
+
+        <section class="timeline">
+          <article class="card">
+            <header class="card-head">
+              <span class="badge">v0.0.7 — TODAY</span>
+              <time class="date mono" id="todayDate">—</time>
+            </header>
+            <h3 class="card-title">🎬 Trailer + SAO Redesign</h3>
+            <p class="card-text">
+              Added the fan-made trailer — watch it right from the site. Removed hard release
+              date (we're students, it's TBA). Refreshed visuals to feel more SAO anime-panel and
+              less sci-fi. Live Discord member count via widget API.
+            </p>
+            <ul class="tags">
+              <li>#trailer</li>
+              <li>#redesign</li>
+              <li>#tba</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <header class="card-head">
+              <span class="badge">v0.0.6</span>
+              <time class="date mono">—</time>
+            </header>
+            <h3 class="card-title">⚔ Launch Countdown + Team Avatars</h3>
+            <p class="card-text">
+              Added official launch countdown. Real Discord
+              avatars for the 3 head devs. Roadmap restructured for the
+              pre-launch phase.
+            </p>
+            <ul class="tags">
+              <li>#countdown</li>
+              <li>#team</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <header class="card-head">
+              <span class="badge">v0.0.5</span>
+              <time class="date mono">—</time>
+            </header>
+            <h3 class="card-title">🚀 Link Start Intro</h3>
+            <p class="card-text">
+              Added the iconic "LINK START" intro screen. Cleaner Discord
+              features section, focused only on Updates and Game Ideas channels.
+            </p>
+            <ul class="tags">
+              <li>#intro</li>
+              <li>#ui</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <header class="card-head">
+              <span class="badge">v0.0.4</span>
+              <time class="date mono">—</time>
+            </header>
+            <h3 class="card-title">🎨 Clean SAO Rewrite</h3>
+            <p class="card-text">
+              Full site rewrite. White and blue only, simple anime-style
+              system menu aesthetic.
+            </p>
+            <ul class="tags">
+              <li>#rewrite</li>
+              <li>#design</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <header class="card-head">
+              <span class="badge">v0.0.1</span>
+              <time class="date mono">—</time>
+            </header>
+            <h3 class="card-title">🌱 Project Init</h3>
+            <p class="card-text">
+              Three head devs form the Aincrad Dev team. Project file structure
+              set. Concept work begins.
+            </p>
+            <ul class="tags">
+              <li>#genesis</li>
+              <li>#team</li>
+            </ul>
+          </article>
+        </section>
+      </section>
+
+      <!-- =================== DISCORD =================== -->
+      <section id="discord" class="section">
+        <header class="sec-head">
+          <p class="kicker">// COMMUNITY</p>
+          <h2 class="sec-title">Join the Party</h2>
+          <p class="sec-sub"><span id="discordCount2">—</span> players already cleared the gate.</p>
+        </header>
+
+        <section class="discord-grid">
+          <article class="discord-card">
+            <h3 class="discord-name">⚔ Aincrad Dev</h3>
+            <p class="discord-text">
+              The official development Discord. Share game ideas, get first
+              devlog updates, and chat with the team directly.
+            </p>
+
+            <ul class="discord-info">
+              <li><span class="dot dot-blue"></span> <strong><span id="discordCount3">—</span></strong> total members
+              </li>
+              <li><span class="dot dot-cyan"></span> Active community</li>
+              <li><span class="dot dot-online"></span> Open invites</li>
+            </ul>
+
+            <a href="https://discord.gg/RpWcRSUhUe" target="_blank" rel="noopener" class="btn-main big">
+              Join Discord Server
+            </a>
+          </article>
+
+          <article class="discord-features">
+            <article class="feat">
+              <span class="feat-icon">📢</span>
+              <h4>Updates & Announcements</h4>
+              <p>First to see patches, devlogs, and new features. Active in <code>#updates</code> and
+                <code>#announcements</code>.</p>
+            </article>
+            <article class="feat">
+              <span class="feat-icon">🎮</span>
+              <h4>Game Ideas & Feedback</h4>
+              <p>Share ideas and vote on features in <code>#game-ideas</code>. Your voice shapes the game.</p>
+            </article>
+          </article>
+        </section>
+      </section>
+
+      <!-- =================== TEAM =================== -->
+      <section id="team" class="section">
+        <header class="sec-head">
+          <p class="kicker">// PARTY</p>
+          <h2 class="sec-title">The Players</h2>
+          <p class="sec-sub">Three head devs forming the raid party.</p>
+        </header>
+
+        <section class="team">
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/1511647628339707984/70f7913539b54d10f2782009e4af85a7.png?size=256" class="avatar-img"
+              alt="AniVH" />
+            <h3 class="m-name">AniVH</h3>
+            <p class="m-role">Manager</p>
+          </article>
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/1282789957664243777/80d02b2d78cae2e6c06aec9d8e0b81b6.png?size=256" class="avatar-img"
+              alt="Black on top" />
+            <h3 class="m-name">EVILフォクシー</h3>
+            <p class="m-role">Head Developer</p>
+          </article>
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/803971717121966141/c881b0beedaf34db0bce41923c992eec.png?size=256" class="avatar-img"
+              alt="Mochii" />
+              <h3 class="m-name">Mochii</h3>
+              <p class="m-role">Head Modeller</p>
+          </article>
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/1437538657283215503/b6155a902cff2c1d39c910859f0bea42.png?size=256" class="avatar-img"
+              alt="EVILフォクシー" />
+            <h3 class="m-name">Black on top</h3>
+            <p class="m-role">Modeller</p>
+          </article>
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/690135158459727920/d505940b9a2f1296bda7dc01c38eabb2.png?size=256" class="avatar-img"
+              alt="Valenx" />
+              <h3 class="m-name">Valenx</h3>
+              <p class="m-role">Developer</p>
+          </article>
+          <article class="member">
+            <img src="https://cdn.discordapp.com/avatars/793043150641299456/a65492b3bbc62787dbf1a413446238d8.png?size=256" class="avatar-img"
+              alt="Vkilkri" />
+              <h3 class="m-name">Vkilkri</h3>
+              <p class="m-role">Documentation Specialist</p>
+          </article>
+        </section>
+      </section>
+
+      <!-- =================== ROADMAP =================== -->
+      <section id="roadmap" class="section">
+        <header class="sec-head">
+          <p class="kicker">// 100 FLOORS OF AINCRAD</p>
+          <h2 class="sec-title">The Journey</h2>
+          <p class="sec-sub">Pre-launch · Building the foundation.</p>
+        </header>
+
+        <section class="roadmap">
+          <article class="phase current">
+            <span class="phase-icon">🌱</span>
+            <h3>Pre-Launch</h3>
+            <p>Core team formation, concept art, project structure, Discord community. <strong class="wip">In
+                Progress</strong></p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">⚔</span>
+            <h3>Floor 1 — First Clear</h3>
+            <p>First playable floor. Login system, basic combat, starter weapons. <strong class="locked">Locked</strong>
+            </p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">🛡</span>
+            <h3>Floors 2–10 — Early Floors</h3>
+            <p>Basic party system, early game enemies, level 1-10 progression. <strong class="locked">Locked</strong>
+            </p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">🗡</span>
+            <h3>Floors 11–25 — Mid Floors</h3>
+            <p>Skill system, mid-tier bosses, raid mechanics for groups. <strong class="locked">Locked</strong></p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">👹</span>
+            <h3>Floors 26–50 — Boss Arc</h3>
+            <p>Major boss fights, loot tables, guild system. <strong class="locked">Locked</strong></p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">🏰</span>
+            <h3>Floors 51–75 — Upper Floors</h3>
+            <p>Endgame dungeons, mythic weapons, prestige system. <strong class="locked">Locked</strong></p>
+          </article>
+          <article class="phase">
+            <span class="phase-icon">⚡</span>
+            <h3>Floors 76–99 — Final Stretch</h3>
+            <p>Hardcore mode, ultimate bosses, legendary gear. <strong class="locked">Locked</strong></p>
+          </article>
+          <article class="phase final">
+            <span class="phase-icon">🏆</span>
+            <h3>Floor 100 — The Top</h3>
+            <p>Final boss, game complete, full release. <strong class="locked">Locked</strong></p>
+          </article>
+        </section>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <p class="footer-jp">ソードアート・オンライン</p>
+        <h3 class="logo-text">SAO<span class="dot-sep">.</span>AINCRAD</h3>
+        <p>A fan-made SAO-inspired MMORPG. Not affiliated with the official IP.</p>
+        <p class="copyright">© 2026 All Rights Reserved — Release date TBA</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -58,6 +58,19 @@ body {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><text y='22' font-size='20' fill='white' stroke='%234a8fff' stroke-width='0.5'>⚔</text></svg>") 4 4, default;
 }
 
+html.body-locked,
+body.body-locked {
+  overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 ul {
   list-style: none;
 }
@@ -198,6 +211,7 @@ code {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 0 1rem;
 }
 
 .trailer-overlay.open {
@@ -237,9 +251,9 @@ code {
 }
 
 #trailerFrame {
-  width: 90vw;
-  max-width: 1100px;
-  height: calc(90vw * 9 / 16);
+  width: min(90vw, 1100px);
+  max-width: calc(100vw - 2rem);
+  height: calc(min(90vw, 1100px) * 9 / 16);
   max-height: 80vh;
   border: 1px solid var(--border-strong);
   box-shadow: 0 0 60px rgba(74, 143, 255, 0.2);

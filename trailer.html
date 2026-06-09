@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SAO Fan Trailer</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Noto+Sans+JP:wght@400;700;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-color: #00bfff;
@@ -18,727 +15,170 @@
       --font-body: 'Rajdhani', sans-serif;
       --font-ja: 'Noto Sans JP', sans-serif;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { overflow: hidden; }
     body {
-      background: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-body);
-      overflow: hidden;
-      height: 100vh;
-      width: 100vw;
-      cursor: none;
-      user-select: none;
+      background: var(--bg-dark); color: var(--text-main);
+      font-family: var(--font-body); overflow: hidden;
+      height: 100vh; width: 100vw;
+      cursor: none; user-select: none;
     }
-
-    /* Cinematic Framing */
-    .letterbox-top,
-    .letterbox-bottom {
-      position: fixed;
-      left: 0;
-      right: 0;
-      height: 12vh;
-      background: #000;
-      z-index: 200;
-      pointer-events: none;
+    .letterbox-top, .letterbox-bottom {
+      position: fixed; left: 0; right: 0; height: 12vh;
+      background: #000; z-index: 200; pointer-events: none;
       transition: all 0.5s ease;
     }
-
-    .letterbox-top {
-      top: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .letterbox-bottom {
-      bottom: 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* Visual Overlays & Texture */
+    .letterbox-top { top: 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .letterbox-bottom { bottom: 0; border-top: 1px solid rgba(255,255,255,0.05); }
     #grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 150;
-      opacity: 0.06;
+      position: fixed; inset: 0; pointer-events: none; z-index: 150; opacity: 0.06;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
       animation: grainPan 0.3s steps(4) infinite;
     }
-
-    @keyframes grainPan {
-
-      0%,
-      100% {
-        transform: translate(0, 0);
-      }
-
-      25% {
-        transform: translate(-1%, 1%);
-      }
-
-      50% {
-        transform: translate(1%, -1%);
-      }
-
-      75% {
-        transform: translate(-1%, -1%);
-      }
-    }
-
+    @keyframes grainPan { 0%,100%{transform:translate(0)} 25%{transform:translate(-1%,1%)} 50%{transform:translate(1%,-1%)} 75%{transform:translate(-1%,-1%)} }
     #scanlines {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 140;
-      background: repeating-linear-gradient(0deg, rgba(0, 191, 255, 0.02) 0px, rgba(0, 191, 255, 0.02) 1px, transparent 1px, transparent 4px);
+      position: fixed; inset: 0; pointer-events: none; z-index: 140;
+      background: repeating-linear-gradient(0deg, rgba(0,191,255,0.02) 0px, rgba(0,191,255,0.02) 1px, transparent 1px, transparent 4px);
     }
-
     #vignette {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 145;
-      background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.9) 100%);
+      position: fixed; inset: 0; pointer-events: none; z-index: 145;
+      background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.9) 100%);
     }
-
-    /* Start Screen & Language Selection */
     #start-screen {
-      position: fixed;
-      inset: 0;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 300;
-      transition: opacity 1s ease;
+      position: fixed; inset: 0; background: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 300; transition: opacity 1s ease;
     }
-
     #start-screen::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(45deg, transparent 49%, var(--primary-glow) 50%, transparent 51%),
-        linear-gradient(-45deg, transparent 49%, var(--primary-glow) 50%, transparent 51%);
-      background-size: 40px 40px;
-      opacity: 0.15;
-      animation: gridScroll 30s linear infinite;
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(45deg, transparent 49%, var(--primary-glow) 50%, transparent 51%), linear-gradient(-45deg, transparent 49%, var(--primary-glow) 50%, transparent 51%);
+      background-size: 40px 40px; opacity: 0.15; animation: gridScroll 30s linear infinite;
+    }
+    @keyframes gridScroll { 0%{background-position:0 0} 100%{background-position:400px 400px} }
+    .logo-container { position: relative; z-index: 2; text-align: center; margin-bottom: 40px; }
+    .logo-jp { font-family: var(--font-ja); font-size: 1.6em; font-weight: 700; color: var(--primary-color); letter-spacing: 12px; margin-bottom: 15px; text-shadow: 0 0 15px var(--primary-glow); }
+    .logo-main { font-family: var(--font-ui); font-size: 6em; font-weight: 900; background: linear-gradient(180deg, #ffffff 30%, var(--primary-color) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 10px; filter: drop-shadow(0 0 25px var(--primary-glow)); }
+    .lang-selector { display: flex; gap: 15px; margin-bottom: 40px; z-index: 10; flex-wrap: wrap; justify-content: center; }
+    .lang-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,191,255,0.3); color: #888; padding: 8px 20px; font-family: var(--font-ui); font-size: 0.85em; cursor: pointer; border-radius: 4px; transition: all 0.3s ease; }
+    .lang-btn:hover, .lang-btn.active { border-color: var(--primary-color); color: var(--primary-color); background: rgba(0,191,255,0.1); box-shadow: 0 0 15px rgba(0,191,255,0.2); }
+    #start-btn { padding: 18px 65px; font-family: var(--font-ui); font-size: 1.2em; font-weight: 700; background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); cursor: pointer; letter-spacing: 4px; text-transform: uppercase; position: relative; z-index: 2; transition: all 0.4s ease; clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%); }
+    #start-btn:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 35px var(--primary-color); letter-spacing: 6px; }
+    #trailer { position: fixed; inset: 0; display: none; background: #000; }
+    #trailer.active { display: block; }
+    .scene { position: absolute; inset: 0; opacity: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 1.2s cubic-bezier(0.42,0,0.58,1); padding: 12vh 8vw; background-position: center; background-size: cover; }
+    .scene.active { opacity: 1; }
+    #scene1 { background: radial-gradient(circle at center, #001122 0%, #000 100%); }
+    #scene2 { background: radial-gradient(circle at center, #110022 0%, #000 80%); }
+    #scene3 { background: radial-gradient(circle at center, #001122 0%, #000 100%); }
+    #scene4 { background: radial-gradient(circle at center, #0a0a1a 0%, #000 100%); }
+    #scene5 { background: linear-gradient(135deg, #000000 0%, #050512 100%); }
+    #scene6 { background: radial-gradient(circle at center, #0e1124 0%, #000000 100%); }
+    #scene7 { background: #000; }
+    .system-window { border: 1px solid var(--primary-color); background: rgba(0,12,24,0.85); padding: 40px 60px; min-width: 650px; max-width: 80%; position: relative; box-shadow: 0 0 40px rgba(0,191,255,0.15); backdrop-filter: blur(8px); }
+    .system-title { font-family: var(--font-ui); font-size: 0.85em; color: var(--primary-color); letter-spacing: 4px; margin-bottom: 20px; }
+    .system-text { font-size: 1.5em; font-weight: 600; letter-spacing: 1px; line-height: 1.6; }
+    .blink { animation: cursorBlink 0.7s infinite; }
+    @keyframes cursorBlink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    .title-jp-sc2 { font-family: var(--font-ja); font-size: 2.2em; color: rgba(255,255,255,0.7); letter-spacing: 16px; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+    .title-en { font-family: var(--font-ui); font-size: 5em; font-weight: 900; letter-spacing: 14px; text-align: center; line-height: 1.1; text-shadow: 0 0 40px var(--primary-glow); }
+    .title-sub { font-family: var(--font-ui); font-size: 1.3em; color: var(--primary-color); letter-spacing: 12px; margin-top: 30px; }
+    .quote-box { background: rgba(0,0,0,0.75); border-left: 4px solid var(--primary-color); padding: 35px 55px; max-width: 950px; backdrop-filter: blur(12px); }
+    .quote-text { font-size: 2.2em; font-style: italic; line-height: 1.5; font-weight: 400; }
+    .quote-author { font-family: var(--font-ui); font-size: 0.9em; color: var(--primary-color); margin-top: 25px; letter-spacing: 4px; }
+    .aincrad-num { font-family: var(--font-ui); font-size: 8.5em; font-weight: 900; line-height: 1; letter-spacing: 8px; text-shadow: 0 0 40px rgba(255,255,255,0.2); }
+    .aincrad-label { font-size: 2.4em; color: var(--primary-color); letter-spacing: 6px; text-transform: uppercase; margin-top: 15px; }
+    .aincrad-sub { font-size: 1.4em; color: #b0b0b0; margin-top: 20px; letter-spacing: 4px; }
+    .credit-label { font-family: var(--font-ui); font-size: 1.1em; color: var(--primary-color); letter-spacing: 6px; margin-bottom: 25px; }
+    .credit-name { font-size: 3.5em; letter-spacing: 6px; margin-bottom: 10px; text-shadow: 0 0 20px var(--primary-glow); }
+    .credit-name.jp-font { font-family: var(--font-ja); font-weight: 700; }
+    .credit-amp { font-family: var(--font-ui); font-size: 1.8em; color: var(--primary-color); margin: 15px 0; }
+    .discord-text { font-family: var(--font-ui); font-size: 2.4em; letter-spacing: 8px; text-shadow: 0 0 35px #5865F2; text-align: center; }
+    .discord-btn { display: inline-block; margin-top: 45px; padding: 22px 75px; background: #5865F2; color: #fff; text-decoration: none; font-family: var(--font-ui); font-size: 1.2em; font-weight: 700; letter-spacing: 4px; border-radius: 6px; box-shadow: 0 0 35px rgba(88,101,242,0.6); transition: all 0.3s cubic-bezier(0.25,1,0.5,1); }
+    .discord-btn:hover { background: #4752C4; box-shadow: 0 0 50px #5865F2; transform: scale(1.04); }
+    .end-logo { font-family: var(--font-ui); font-size: 7em; font-weight: 900; background: linear-gradient(180deg, #ffffff 20%, var(--primary-color) 70%, #003366 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 20px; filter: drop-shadow(0 0 40px var(--primary-glow)); }
+    .end-year { font-family: var(--font-ui); font-size: 2em; color: var(--primary-color); letter-spacing: 22px; margin-top: 25px; }
+    #subtitle { position: fixed; bottom: 15vh; left: 8vw; right: 8vw; text-align: center; font-size: 1.7em; font-weight: 600; color: #ffffff; text-shadow: 0 2px 4px #000, 0 0 15px rgba(0,0,0,0.9); letter-spacing: 2px; z-index: 210; opacity: 0; transition: opacity 0.4s ease; }
+    #subtitle.show { opacity: 1; }
+    #subtitle.ja-sub { font-family: var(--font-ja); font-size: 1.5em; letter-spacing: 4px; }
+    #progress { position: fixed; bottom: 12vh; left: 0; right: 0; height: 3px; background: rgba(0,191,255,0.1); z-index: 165; }
+    #progress-bar { height: 100%; background: var(--primary-color); width: 0%; box-shadow: 0 0 12px var(--primary-color); }
+    #cursor { position: fixed; width: 24px; height: 24px; border: 1.5px solid var(--primary-color); pointer-events: none; z-index: 1000; transform: translate(-50%,-50%); transition: width 0.15s ease, height 0.15s ease; }
+    #cursor::before { content: ''; position: absolute; top: 50%; left: 50%; width: 4px; height: 4px; background: var(--primary-color); transform: translate(-50%,-50%); }
+    .glitch { position: relative; }
+    .glitch::before, .glitch::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.7; }
+    .glitch::before { color: #ff0055; z-index: -1; animation: glitchNoise1 2.5s infinite linear alternate-reverse; }
+    .glitch::after { color: #00ffff; z-index: -2; animation: glitchNoise2 2.5s infinite linear alternate-reverse; }
+    @keyframes glitchNoise1 { 0%,92%,100%{transform:translate(0)} 94%{transform:translate(-4px,2px);filter:blur(1px)} 96%{transform:translate(4px,-2px)} }
+    @keyframes glitchNoise2 { 0%,92%,100%{transform:translate(0)} 94%{transform:translate(4px,-2px)} 96%{transform:translate(-3px,2px);filter:blur(1px)} }
+    #end-interface { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 400; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 1s cubic-bezier(0.4,0,0.2,1); }
+    #end-interface.active { opacity: 1; pointer-events: auto; }
+    .end-panel { border: 1px solid rgba(0,191,255,0.4); background: rgba(0,10,20,0.8); padding: 50px; width: 90%; max-width: 700px; box-shadow: 0 0 50px rgba(0,191,255,0.25); text-align: center; position: relative; }
+    .end-panel::before { content: ''; position: absolute; top: -1px; left: 20px; right: 20px; height: 1px; background: linear-gradient(90deg, transparent, var(--primary-color), transparent); }
+    .end-title-hud { font-family: var(--font-ui); font-size: 1.8em; letter-spacing: 6px; margin-bottom: 10px; color: #fff; }
+    .end-subtitle-hud { font-size: 1em; color: var(--primary-color); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 40px; }
+    .end-btn-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+    @media (min-width: 480px) { .end-btn-grid { grid-template-columns: 1fr 1fr; } .full-width-btn { grid-column: span 2; } }
+    .hud-action-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(0,191,255,0.3); color: #fff; padding: 16px 25px; font-family: var(--font-ui); font-size: 0.95em; letter-spacing: 2px; cursor: pointer; text-transform: uppercase; transition: all 0.3s ease; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+    .hud-action-btn:hover { background: rgba(0,191,255,0.15); border-color: var(--primary-color); box-shadow: 0 0 20px rgba(0,191,255,0.3); color: var(--primary-color); }
+    .hud-action-btn.primary { background: var(--primary-color); color: #000; font-weight: 700; border-color: var(--primary-color); }
+    .hud-action-btn.primary:hover { background: #0099cc; color: #fff; box-shadow: 0 0 25px var(--primary-color); }
+
+    @media (max-width: 600px) {
+      body { overflow-y: hidden; }
+      .letterbox-top, .letterbox-bottom { height: 2.5vh; }
+      .logo-container { margin-bottom: 10px; }
+      .logo-jp { font-size: 0.7em; letter-spacing: 3px; margin-bottom: 6px; }
+      .logo-main { font-size: 2em; letter-spacing: 2px; }
+      .lang-selector { gap: 4px; margin-bottom: 10px; }
+      .lang-btn { font-size: 0.55em; padding: 3px 8px; }
+      #start-btn { padding: 8px 22px; font-size: 0.65em; clip-path: none; }
+      .scene { padding: 1.5vh 2vw; }
+      .system-window { min-width: 0; width: 94%; padding: 10px 8px; }
+      .system-text { font-size: 0.75em; }
+      .system-title,
+      #s1-sys-title { font-size: 0.6em !important; margin-bottom: 6px !important; }
+      .title-jp-sc2 { font-size: 0.75em; letter-spacing: 3px; margin-bottom: 6px; }
+      .title-en { font-size: 1.3em; letter-spacing: 1px; }
+      .title-sub { font-size: 0.6em; letter-spacing: 2px; margin-top: 8px; }
+      .quote-box { padding: 10px 8px; }
+      .quote-text { font-size: 0.85em; }
+      .quote-author { font-size: 0.55em; margin-top: 6px; }
+      .aincrad-num { font-size: 2.4em; }
+      .aincrad-label { font-size: 0.85em; letter-spacing: 1px; margin-top: 4px; }
+      .aincrad-sub { font-size: 0.6em; margin-top: 4px; letter-spacing: 0; }
+      .credit-label { font-size: 0.55em; letter-spacing: 1px; margin-bottom: 8px; }
+      .credit-name { font-size: 1em; letter-spacing: 1px; }
+      .credit-amp { font-size: 0.7em; margin: 3px 0; }
+      .discord-text { font-size: 0.85em; letter-spacing: 1px; }
+      .discord-btn { padding: 8px 20px; font-size: 0.65em; margin-top: 10px; }
+      .end-logo { font-size: 2em; letter-spacing: 3px; }
+      .end-year { font-size: 0.8em; letter-spacing: 4px; margin-top: 8px; }
+      #subtitle { font-size: 0.65em; bottom: 3.5vh; }
+      #subtitle.ja-sub { font-size: 0.65em; }
+      #progress { bottom: 3.5vh; }
+      .end-panel { padding: 10px 6px; }
+      .end-title-hud { font-size: 0.7em; letter-spacing: 1px; }
+      .end-subtitle-hud { font-size: 0.55em; margin-bottom: 8px; }
+      .hud-action-btn { font-size: 0.55em; padding: 6px 6px; }
+      #cursor { display: none; }
     }
 
-    @keyframes gridScroll {
-      0% {
-        background-position: 0 0;
-      }
-
-      100% {
-        background-position: 400px 400px;
-      }
+    @media (max-width: 380px) {
+      .logo-main { font-size: 2em; }
+      .title-en { font-size: 1.5em; }
+      .aincrad-num { font-size: 2.5em; }
+      .credit-name { font-size: 1.1em; }
+      .end-logo { font-size: 2em; }
+      .discord-text { font-size: 0.9em; }
+      .system-window { padding: 10px 8px; }
+      .end-panel { padding: 8px 4px; }
+      .end-title-hud { font-size: 0.65em; }
+      .end-subtitle-hud { font-size: 0.5em; margin-bottom: 6px; }
+      .hud-action-btn { font-size: 0.5em; padding: 5px 4px; }
     }
-
-    .logo-container {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .logo-jp {
-      font-family: var(--font-ja);
-      font-size: 1.6em;
-      font-weight: 700;
-      color: var(--primary-color);
-      letter-spacing: 12px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px var(--primary-glow);
-    }
-
-    .logo-main {
-      font-family: var(--font-ui);
-      font-size: 6em;
-      font-weight: 900;
-      background: linear-gradient(180deg, #ffffff 30%, var(--primary-color) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 10px;
-      filter: drop-shadow(0 0 25px var(--primary-glow));
-    }
-
-    .lang-selector {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 40px;
-      z-index: 10;
-    }
-
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(0, 191, 255, 0.3);
-      color: #888;
-      padding: 8px 20px;
-      font-family: var(--font-ui);
-      font-size: 0.85em;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-
-    .lang-btn:hover,
-    .lang-btn.active {
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-      background: rgba(0, 191, 255, 0.1);
-      box-shadow: 0 0 15px rgba(0, 191, 255, 0.2);
-    }
-
-    #start-btn {
-      padding: 18px 65px;
-      font-family: var(--font-ui);
-      font-size: 1.2em;
-      font-weight: 700;
-      background: transparent;
-      color: var(--primary-color);
-      border: 1px solid var(--primary-color);
-      cursor: pointer;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 2;
-      transition: all 0.4s ease;
-      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-    }
-
-    #start-btn:hover {
-      background: var(--primary-color);
-      color: #000;
-      box-shadow: 0 0 35px var(--primary-color);
-      letter-spacing: 6px;
-    }
-
-    /* Cinematic Video Pipeline */
-    #trailer {
-      position: fixed;
-      inset: 0;
-      display: none;
-      background: #000;
-    }
-
-    #trailer.active {
-      display: block;
-    }
-
-    .scene {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 1.2s cubic-bezier(0.42, 0, 0.58, 1);
-      padding: 12vh 8vw;
-      background-position: center;
-      background-size: cover;
-    }
-
-    .scene.active {
-      opacity: 1;
-    }
-
-    /* Scene Styling Adjustments */
-    #scene1 {
-      background: radial-gradient(circle at center, #001122 0%, #000 100%);
-    }
-
-    #scene2 {
-      background: radial-gradient(circle at center, #110022 0%, #000 80%);
-    }
-
-    #scene3 {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('images/kirito_asuna.jpg');
-      background-color: #050508;
-    }
-
-    #scene4 {
-      background-image: linear-gradient(rgba(0, 12, 24, 0.5), rgba(0, 0, 0, 0.85)), url('images/aincrad.jpg');
-      background-color: #02050a;
-    }
-
-    #scene5 {
-      background: linear-gradient(135deg, #000000 0%, #050512 100%);
-    }
-
-    #scene6 {
-      background: radial-gradient(circle at center, #0e1124 0%, #000000 100%);
-    }
-
-    #scene7 {
-      background: #000;
-    }
-
-    /* UI Overlay Boxes */
-    .system-window {
-      border: 1px solid var(--primary-color);
-      background: rgba(0, 12, 24, 0.85);
-      padding: 20px;
-      /* Reduced padding to preserve precious phone display space */
-      width: 90%;
-      /* Uses proportional percentage mapping on mobile views */
-      max-width: 650px;
-      /* Keeps the interface from looking too wide on desktop monitors */
-      position: relative;
-      box-shadow: 0 0 40px rgba(0, 191, 255, 0.15);
-      backdrop-filter: blur(8px);
-    }
-
-    /* Add this media query rule right before the closing 
-  </style> tag in trailer.html */
-  @media (max-width: 768px) {
-  body {
-  cursor: auto !important; /* Re-enables touch tap recognition vectors inside the iframe */
-  }
-
-  .system-title {
-  font-size: 1.2rem !important; /* Ensures UI header texts scale correctly */
-  }
-  }
-
-  .system-title {
-  font-family: var(--font-ui);
-  font-size: 0.85em;
-  color: var(--primary-color);
-  letter-spacing: 4px;
-  margin-bottom: 20px;
-  }
-
-  .system-text {
-  font-size: 1.5em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1.6;
-  }
-
-  .blink {
-  animation: cursorBlink 0.7s infinite;
-  }
-
-  @keyframes cursorBlink {
-
-  0%,
-  49% {
-  opacity: 1;
-  }
-
-  50%,
-  100% {
-  opacity: 0;
-  }
-  }
-
-  /* Typography & Core Scene Graphics */
-  .title-jp-sc2 {
-  font-family: var(--font-ja);
-  font-size: 2.2em;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 16px;
-  margin-bottom: 25px;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-
-  .title-en {
-  font-family: var(--font-ui);
-  font-size: 5em;
-  font-weight: 900;
-  letter-spacing: 14px;
-  text-align: center;
-  line-height: 1.1;
-  text-shadow: 0 0 40px var(--primary-glow);
-  }
-
-  .title-sub {
-  font-family: var(--font-ui);
-  font-size: 1.3em;
-  color: var(--primary-color);
-  letter-spacing: 12px;
-  margin-top: 30px;
-  }
-
-  .quote-box {
-  background: rgba(0, 0, 0, 0.75);
-  border-left: 4px solid var(--primary-color);
-  padding: 35px 55px;
-  max-width: 950px;
-  backdrop-filter: blur(12px);
-  }
-
-  .quote-text {
-  font-size: 2.2em;
-  font-style: italic;
-  line-height: 1.5;
-  font-weight: 400;
-  }
-
-  .quote-author {
-  font-family: var(--font-ui);
-  font-size: 0.9em;
-  color: var(--primary-color);
-  margin-top: 25px;
-  letter-spacing: 4px;
-  }
-
-  .aincrad-num {
-  font-family: var(--font-ui);
-  font-size: 8.5em;
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 8px;
-  text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
-  }
-
-  .aincrad-label {
-  font-size: 2.4em;
-  color: var(--primary-color);
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  margin-top: 15px;
-  }
-
-  .aincrad-sub {
-  font-size: 1.4em;
-  color: #b0b0b0;
-  margin-top: 20px;
-  letter-spacing: 4px;
-  }
-
-  /* Credit Blocks */
-  .credit-label {
-  font-family: var(--font-ui);
-  font-size: 1.1em;
-  color: var(--primary-color);
-  letter-spacing: 6px;
-  margin-bottom: 25px;
-  }
-
-  .credit-name {
-  font-size: 3.5em;
-  letter-spacing: 6px;
-  margin-bottom: 10px;
-  text-shadow: 0 0 20px var(--primary-glow);
-  }
-
-  .credit-name.jp-font {
-  font-family: var(--font-ja);
-  font-weight: 700;
-  }
-
-  .credit-amp {
-  font-family: var(--font-ui);
-  font-size: 1.8em;
-  color: var(--primary-color);
-  margin: 15px 0;
-  }
-
-  /* Call To Action Discord Elements */
-  .discord-text {
-  font-family: var(--font-ui);
-  font-size: 2.4em;
-  letter-spacing: 8px;
-  text-shadow: 0 0 35px #5865F2;
-  }
-
-  .discord-btn {
-  display: inline-block;
-  margin-top: 45px;
-  padding: 22px 75px;
-  background: #5865F2;
-  color: #fff;
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-size: 1.2em;
-  font-weight: 700;
-  letter-spacing: 4px;
-  border-radius: 6px;
-  box-shadow: 0 0 35px rgba(88, 101, 242, 0.6);
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .discord-btn:hover {
-  background: #4752C4;
-  box-shadow: 0 0 50px #5865F2;
-  transform: scale(1.04);
-  }
-
-  .end-logo {
-  font-family: var(--font-ui);
-  font-size: 7em;
-  font-weight: 900;
-  background: linear-gradient(180deg, #ffffff 20%, var(--primary-color) 70%, #003366 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 20px;
-  filter: drop-shadow(0 0 40px var(--primary-glow));
-  }
-
-  .end-year {
-  font-family: var(--font-ui);
-  font-size: 2em;
-  color: var(--primary-color);
-  letter-spacing: 22px;
-  margin-top: 25px;
-  }
-
-  /* Dynamic Subtitles Track */
-  #subtitle {
-  position: fixed;
-  bottom: 15vh;
-  left: 8vw;
-  right: 8vw;
-  text-align: center;
-  font-size: 1.7em;
-  font-weight: 600;
-  color: #ffffff;
-  text-shadow: 0 2px 4px #000, 0 0 15px rgba(0, 0, 0, 0.9);
-  letter-spacing: 2px;
-  z-index: 210;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  }
-
-  #subtitle.show {
-  opacity: 1;
-  }
-
-  #subtitle.ja-sub {
-  font-family: var(--font-ja);
-  font-size: 1.5em;
-  letter-spacing: 4px;
-  }
-
-  /* Timeline Tracking Elements */
-  #progress {
-  position: fixed;
-  bottom: 12vh;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: rgba(0, 191, 255, 0.1);
-  z-index: 165;
-  }
-
-  #progress-bar {
-  height: 100%;
-  background: var(--primary-color);
-  width: 0%;
-  box-shadow: 0 0 12px var(--primary-color);
-  }
-
-  /* Custom Input Asset Element */
-  #cursor {
-  position: fixed;
-  width: 24px;
-  height: 24px;
-  border: 1.5px solid var(--primary-color);
-  pointer-events: none;
-  z-index: 1000;
-  transform: translate(-50%, -50%);
-  transition: width 0.15s ease, height 0.15s ease;
-  }
-
-  #cursor::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: var(--primary-color);
-  transform: translate(-50%, -50%);
-  }
-
-  /* Glitch Structural Styles */
-  .glitch {
-  position: relative;
-  }
-
-  .glitch::before,
-  .glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.7;
-  }
-
-  .glitch::before {
-  color: #ff0055;
-  z-index: -1;
-  animation: glitchNoise1 2.5s infinite linear alternate-reverse;
-  }
-
-  .glitch::after {
-  color: #00ffff;
-  z-index: -2;
-  animation: glitchNoise2 2.5s infinite linear alternate-reverse;
-  }
-
-  @keyframes glitchNoise1 {
-
-  0%,
-  92%,
-  100% {
-  transform: translate(0);
-  }
-
-  94% {
-  transform: translate(-4px, 2px);
-  filter: blur(1px);
-  }
-
-  96% {
-  transform: translate(4px, -2px);
-  }
-  }
-
-  @keyframes glitchNoise2 {
-
-  0%,
-  92%,
-  100% {
-  transform: translate(0);
-  }
-
-  94% {
-  transform: translate(4px, -2px);
-  }
-
-  96% {
-  transform: translate(-3px, 2px);
-  filter: blur(1px);
-  }
-  }
-
-  /* CUSTOM INTERACTIVE END SCREEN PANEL HUD */
-  #end-interface {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(20px);
-  z-index: 400;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #end-interface.active {
-  opacity: 1;
-  pointer-events: auto;
-  }
-
-  .end-panel {
-  border: 1px solid rgba(0, 191, 255, 0.4);
-  background: rgba(0, 10, 20, 0.8);
-  padding: 50px;
-  width: 90%;
-  max-width: 700px;
-  box-shadow: 0 0 50px rgba(0, 191, 255, 0.25);
-  text-align: center;
-  position: relative;
-  }
-
-  .end-panel::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 20px;
-  right: 20px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
-  }
-
-  .end-title-hud {
-  font-family: var(--font-ui);
-  font-size: 1.8em;
-  letter-spacing: 6px;
-  margin-bottom: 10px;
-  color: #fff;
-  }
-
-  .end-subtitle-hud {
-  font-size: 1em;
-  color: var(--primary-color);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  }
-
-  .end-btn-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  }
-
-  @media (min-width: 480px) {
-  .end-btn-grid {
-  grid-template-columns: 1fr 1fr;
-  }
-
-  .full-width-btn {
-  grid-column: span 2;
-  }
-  }
-
-  .hud-action-btn {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(0, 191, 255, 0.3);
-  color: #fff;
-  padding: 16px 25px;
-  font-family: var(--font-ui);
-  font-size: 0.95em;
-  letter-spacing: 2px;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
-
-  .hud-action-btn:hover {
-  background: rgba(0, 191, 255, 0.15);
-  border-color: var(--primary-color);
-  box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
-  color: var(--primary-color);
-  }
-
-  .hud-action-btn.primary {
-  background: var(--primary-color);
-  color: #000;
-  font-weight: 700;
-  border-color: var(--primary-color);
-  }
-
-  .hud-action-btn.primary:hover {
-  background: #0099cc;
-  color: #fff;
-  box-shadow: 0 0 25px var(--primary-color);
-  }
   </style>
 </head>
-
 <body>
-
   <div class="letterbox-top"></div>
   <div class="letterbox-bottom"></div>
   <div id="grain"></div>
@@ -751,171 +191,95 @@
       <div class="logo-jp">ソードアート・オンライン</div>
       <div class="logo-main">SAO</div>
     </div>
-
     <div class="lang-selector">
       <button class="lang-btn active" onclick="setLanguage('en')">ENGLISH</button>
       <button class="lang-btn" onclick="setLanguage('de')">DEUTSCH</button>
       <button class="lang-btn" onclick="setLanguage('ja')">日本語</button>
     </div>
-
     <button id="start-btn">▶ LINK START</button>
   </div>
 
   <div id="trailer">
-
     <div class="scene active" id="scene1" style="display: flex;">
       <div class="system-window">
-        <div class="s1-sys-title" id="s1-sys-title"
-          style="font-family: var(--font-ui); font-size: 0.85em; color: var(--primary-color); letter-spacing: 4px; margin-bottom: 20px;">
-          [ SYSTEM LOCATING ]</div>
-        <div class="system-text" id="system-text">
-          Establishing link sequence<span class="blink">_</span>
-        </div>
+        <div class="s1-sys-title" id="s1-sys-title" style="font-family:var(--font-ui);font-size:0.85em;color:var(--primary-color);letter-spacing:4px;margin-bottom:20px;">[ SYSTEM LOCATING ]</div>
+        <div class="system-text" id="system-text">Establishing link sequence<span class="blink">_</span></div>
       </div>
     </div>
-
     <div class="scene" id="scene2">
       <div class="title-jp-sc2">ソードアート・オンライン</div>
       <div class="title-en glitch" data-text="SWORD ART ONLINE">SWORD<br>ART<br>ONLINE</div>
       <div class="title-sub" id="s2-sub">— AINCRAD ARC —</div>
     </div>
-
     <div class="scene" id="scene3">
       <div class="quote-box">
         <div class="quote-text" id="s3-quote">"If you die in the game, you die in the real world."</div>
         <div class="quote-author" id="s3-author">— AKIHIKO KAYABA</div>
       </div>
     </div>
-
     <div class="scene" id="scene4">
-      <div class="aincrad-text" style="text-align: center;">
+      <div class="aincrad-text" style="text-align:center;">
         <div class="aincrad-num">10,000</div>
         <div class="aincrad-label" id="s4-label">Players Trapped</div>
         <div class="aincrad-sub" id="s4-sub">100 Floors • No Escape • No Logout</div>
       </div>
     </div>
-
     <div class="scene" id="scene5">
       <div class="credit-block text-center">
         <div class="credit-label" id="s5-label">A PROJECT DIRECTED BY</div>
         <div class="credit-name jp-font">EVILフォクシー</div>
         <div class="credit-amp">&</div>
-        <div class="credit-name" style="font-family: var(--font-ui); font-weight:700;">BLACK ON TOP & ANIVH</div>
+        <div class="credit-name" style="font-family:var(--font-ui);font-weight:700;">BLACK ON TOP & ANIVH</div>
       </div>
     </div>
-
     <div class="scene" id="scene6">
       <div class="discord-text" id="s6-text">JOIN THE COMMUNITY RESISTANCE</div>
       <a href="https://discord.gg/RpWcRSUhUe" target="_blank" class="discord-btn">🎮 DISCORD.GG</a>
     </div>
-
     <div class="scene" id="scene7">
       <div class="end-logo">SAO</div>
       <div class="end-year">2026</div>
     </div>
-
   </div>
 
   <div id="subtitle"></div>
-  <div id="progress">
-    <div id="progress-bar"></div>
-  </div>
+  <div id="progress"><div id="progress-bar"></div></div>
 
   <div id="end-interface">
     <div class="end-panel">
       <div class="end-title-hud" id="hud-end-title">TRAILER TERMINATED</div>
       <div class="end-subtitle-hud" id="hud-end-sub">Link Protocol Suspended</div>
-
       <div class="end-btn-grid">
         <button class="hud-action-btn primary" id="hud-replay-btn" onclick="location.reload();">Watch Again</button>
-
-        <a href="https://sao-aincrad.netlify.app" target="_blank" class="hud-action-btn" id="hud-home-btn">Main
-          Website</a>
+        <a href="https://sao-aincrad.netlify.app" target="_blank" class="hud-action-btn" id="hud-home-btn">Main Website</a>
         <a href="https://discord.gg/RpWcRSUhUe" target="_blank" class="hud-action-btn" id="hud-disc-btn">Discord Hub</a>
-
-        <button class="hud-action-btn full-width-btn" id="hud-close-btn" onclick="handleExitRoute();"
-          style="display: none;">Return to Site</button>
+        <button class="hud-action-btn full-width-btn" id="hud-close-btn" onclick="handleExitRoute();" style="display:none;">Return to Site</button>
       </div>
     </div>
   </div>
 
   <script>
-    // System Cross-Language Data Core Framework Matrices
     const localizations = {
       en: {
-        sysTitle: '[ SYSTEM MESSAGE ]',
-        sysBoot: 'Establishing deep sync with NerveGear interface link...<span class="blink">_</span>',
-        sysSuccess: 'NerveGear Link Synchronized ✓<br>Authentication Successful ✓<br><br>Welcome to Aincrad.<span class="blink">_</span>',
-        s3Quote: '"If you die in the game, you die in the real world."',
-        s3Author: '— AKIHIKO KAYABA',
-        s4Label: 'Players Trapped',
-        s4Sub: '100 Floors • No Escape • No Logout',
-        s5Label: 'A PRODUCTION PROJECT BY',
-        s6Text: 'JOIN OUR GLOBAL COMMUNITY',
-        hudTitle: 'LINK SEQUENCE COMPLETION',
-        hudSub: 'System Terminal Standing By',
-        hudReplay: 'Replay Trailer',
-        hudHome: 'Main Website',
-        hudClose: 'Close Trailer',
-        scenes: [
-          { subtitle: 'Connecting to NerveGear telemetry terminal streams...' },
-          { subtitle: 'Welcome to a virtual world born of absolute nightmare.' },
-          { subtitle: 'Two blades. One unbreakable destinational matrix.' },
-          { subtitle: 'One Hundred Floors. Ten Thousand Souls. One Resolution.' },
-          { subtitle: 'Presented proudly by EVILフォクシー, Black on Top & AniVH' },
-          { subtitle: 'Step into the future. Join the community nexus today.' },
-          { subtitle: '© 2026 — All Rights Reserved. Link Terminal Active.' }
-        ]
+        sysTitle:'[ SYSTEM MESSAGE ]', sysBoot:'Establishing deep sync with NerveGear interface link...<span class="blink">_</span>', sysSuccess:'NerveGear Link Synchronized ✓<br>Authentication Successful ✓<br><br>Welcome to Aincrad.<span class="blink">_</span>',
+        s3Quote:'"If you die in the game, you die in the real world."', s3Author:'— AKIHIKO KAYABA', s4Label:'Players Trapped', s4Sub:'100 Floors • No Escape • No Logout',
+        s5Label:'A PRODUCTION PROJECT BY', s6Text:'JOIN OUR GLOBAL COMMUNITY',
+        hudTitle:'LINK SEQUENCE COMPLETION', hudSub:'System Terminal Standing By', hudReplay:'Replay Trailer', hudHome:'Main Website', hudClose:'Close Trailer',
+        scenes:[{subtitle:'Connecting to NerveGear telemetry terminal streams...'},{subtitle:'Welcome to a virtual world born of absolute nightmare.'},{subtitle:'Two blades. One unbreakable destinational matrix.'},{subtitle:'One Hundred Floors. Ten Thousand Souls. One Resolution.'},{subtitle:'Presented proudly by EVILフォクシー, Black on Top & AniVH'},{subtitle:'Step into the future. Join the community nexus today.'},{subtitle:'© 2026 — All Rights Reserved. Link Terminal Active.'}]
       },
       de: {
-        sysTitle: '[ SYSTEMMELDUNG ]',
-        sysBoot: 'Verbindung zum NerveGear-Interface wird initialisiert...<span class="blink">_</span>',
-        sysSuccess: 'NerveGear-Verbindung synchronisiert ✓<br>Authentifizierung erfolgreich ✓<br><br>Willkommen in Aincrad.<span class="blink">_</span>',
-        s3Quote: '"Wenn du in diesem Spiel stirbst, stirbst du auch in der Realität."',
-        s3Author: '— KAYABA AKIHIKO',
-        s4Label: 'Spieler Gefangen',
-        s4Sub: '100 Stockwerke • Kein Ausweg • Kein Logout',
-        s5Label: 'EIN PROJEKT VON',
-        s6Text: 'TRITT UNSERER COMMUNITY BEI',
-        hudTitle: 'VERBINDUNGS-PROTOKOFF BEENDET',
-        hudSub: 'System-Terminal betriebsbereit',
-        hudReplay: 'Nochmal ansehen',
-        hudHome: 'Hauptwebsite',
-        hudClose: 'Trailer Schließen',
-        scenes: [
-          { subtitle: 'Verbindung zum NerveGear-Terminal wird hergestellt...' },
-          { subtitle: 'Willkommen in einer Welt des reinen virtuellen Schreckens.' },
-          { subtitle: 'Zwei Schwerter. Eine unzertrennliche Bestimmung.' },
-          { subtitle: '100 Stockwerke. 10.000 Spieler. Ein einziges Ende.' },
-          { subtitle: 'Präsentiert von EVILフォクシー, Black on Top & AniVH' },
-          { subtitle: 'Werde jetzt Teil unseres globalen Community-Netzwerks!' },
-          { subtitle: '© 2026 — Alle Rechte vorbehalten. Terminal aktiv.' }
-        ]
+        sysTitle:'[ SYSTEMMELDUNG ]', sysBoot:'Verbindung zum NerveGear-Interface wird initialisiert...<span class="blink">_</span>', sysSuccess:'NerveGear-Verbindung synchronisiert ✓<br>Authentifizierung erfolgreich ✓<br><br>Willkommen in Aincrad.<span class="blink">_</span>',
+        s3Quote:'"Wenn du in diesem Spiel stirbst, stirbst du auch in der Realität."', s3Author:'— KAYABA AKIHIKO', s4Label:'Spieler Gefangen', s4Sub:'100 Stockwerke • Kein Ausweg • Kein Logout',
+        s5Label:'EIN PROJEKT VON', s6Text:'TRITT UNSERER COMMUNITY BEI',
+        hudTitle:'VERBINDUNGS-PROTOKOFF BEENDET', hudSub:'System-Terminal betriebsbereit', hudReplay:'Nochmal ansehen', hudHome:'Hauptwebsite', hudClose:'Trailer Schließen',
+        scenes:[{subtitle:'Verbindung zum NerveGear-Terminal wird hergestellt...'},{subtitle:'Willkommen in einer Welt des reinen virtuellen Schreckens.'},{subtitle:'Zwei Schwerter. Eine unzertrennliche Bestimmung.'},{subtitle:'100 Stockwerke. 10.000 Spieler. Ein einziges Ende.'},{subtitle:'Präsentiert von EVILフォクシー, Black on Top & AniVH'},{subtitle:'Werde jetzt Teil unseres globalen Community-Netzwerks!'},{subtitle:'© 2026 — Alle Rechte vorbehalten. Terminal aktiv.'}]
       },
       ja: {
-        sysTitle: '[ システムメッセージ ]',
-        sysBoot: 'ナーヴギア接続シーケンスを初期化中...<span class="blink">_</span>',
-        sysSuccess: 'ナーヴギアライントランス同期完了 ✓<br>ログイン承認、成功 ✓<br><br>アインクラッドへようこそ。<span class="blink">_</span>',
-        s3Quote: '「これは、ゲームであっても遊びではない。」',
-        s3Author: '— 茅場 晶彦',
-        s4Label: '囚われしプレイヤーたち',
-        s4Sub: '100の階層 • 脱出不可能 • ログアウト不可',
-        s5Label: '制作プロジェクトメンバー',
-        s6Text: '公式コミュニティに参加せよ',
-        hudTitle: '接続シークエンス完了',
-        hudSub: 'システムターミナル待機中',
-        hudReplay: 'もう一度再生',
-        hudHome: 'メインサイトへ',
-        hudClose: 'トレーラーを閉じる',
-        scenes: [
-          { subtitle: 'ナーヴギア通信プロトコルへの接続中...' },
-          { subtitle: '死と隣り合わせの仮想現実世界へようこそ。' },
-          { subtitle: '二本の剣。交差する一つの運命。' },
-          { subtitle: '100の階層。1万人の魂。一つの終わり。' },
-          { subtitle: '提供：EVILフォクシー & Black on Top & AniVH' },
-          { subtitle: 'コミュニティに参加して、新たな戦線へ加われ。' },
-          { subtitle: '© 2026 — 全著作権所有。システム稼働中。' }
-        ]
+        sysTitle:'[ システムメッセージ ]', sysBoot:'ナーヴギア接続シーケンスを初期化中...<span class="blink">_</span>', sysSuccess:'ナーヴギアライントランス同期完了 ✓<br>ログイン承認、成功 ✓<br><br>アインクラッドへようこそ。<span class="blink">_</span>',
+        s3Quote:'「これは、ゲームであっても遊びではない。」', s3Author:'— 茅場 晶彦', s4Label:'囚われしプレイヤーたち', s4Sub:'100の階層 • 脱出不可能 • ログアウト不可',
+        s5Label:'制作プロジェクトメンバー', s6Text:'公式コミュニティに参加せよ',
+        hudTitle:'接続シークエンス完了', hudSub:'システムターミナル待機中', hudReplay:'もう一度再生', hudHome:'メインサイトへ', hudClose:'トレーラーを閉じる',
+        scenes:[{subtitle:'ナーヴギア通信プロトコルへの接続中...'},{subtitle:'死と隣り合わせの仮想現実世界へようこそ。'},{subtitle:'二本の剣。交差する一つの運命。'},{subtitle:'100の階層。1万人の魂。一つの終わり。'},{subtitle:'提供：EVILフォクシー & Black on Top & AniVH'},{subtitle:'コミュニティに参加して、新たな戦線へ加われ。'},{subtitle:'© 2026 — 全著作権所有。システム稼働中。'}]
       }
     };
 
@@ -924,25 +288,20 @@
     let audioCtx = null;
     let currentSceneIdx = 0;
 
-    // Interface Mouse Vector Asset Controls
     const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
-    document.addEventListener('mousedown', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; });
-    document.addEventListener('mouseup', () => { cursor.style.width = '24px'; cursor.style.height = '24px'; });
+    if (cursor && !('ontouchstart' in window)) {
+      document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+      document.addEventListener('mousedown', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; });
+      document.addEventListener('mouseup', () => { cursor.style.width = '24px'; cursor.style.height = '24px'; });
+    } else if (cursor) { cursor.style.display = 'none'; }
 
-    // Detect if inside an iframe element on your main webpage
     const isEmbedded = window.self !== window.top;
-    if (isEmbedded) {
-      document.getElementById('hud-close-btn').style.display = 'flex';
-    }
+    if (isEmbedded) document.getElementById('hud-close-btn').style.display = 'flex';
 
-    // Language Target Configuration Assignment
     function setLanguage(lang) {
       currentLang = lang;
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
-
-      // Update Setup Component Visuals Static Cache
       document.getElementById('s1-sys-title').textContent = localizations[lang].sysTitle;
       document.getElementById('system-text').innerHTML = localizations[lang].sysBoot;
       document.getElementById('s3-quote').textContent = localizations[lang].s3Quote;
@@ -951,8 +310,6 @@
       document.getElementById('s4-sub').textContent = localizations[lang].s4Sub;
       document.getElementById('s5-label').textContent = localizations[lang].s5Label;
       document.getElementById('s6-text').textContent = localizations[lang].s6Text;
-
-      // Update Custom HUD Labels dynamically
       document.getElementById('hud-end-title').textContent = localizations[lang].hudTitle;
       document.getElementById('hud-end-sub').textContent = localizations[lang].hudSub;
       document.getElementById('hud-replay-btn').textContent = localizations[lang].hudReplay;
@@ -960,178 +317,100 @@
       document.getElementById('hud-close-btn').textContent = localizations[lang].hudClose;
     }
 
-    // Synthesized Sound Architecture Generation
     function buildCinematicAudioEngine() {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const now = audioCtx.currentTime;
-
       function createTone(freq, start, duration, type, vol) {
         let osc = audioCtx.createOscillator();
         let gain = audioCtx.createGain();
         let lp = audioCtx.createBiquadFilter();
-
         osc.type = type;
         osc.frequency.setValueAtTime(freq, start);
         lp.type = 'lowpass';
         lp.frequency.setValueAtTime(1400, start);
-
         gain.gain.setValueAtTime(0, start);
         gain.gain.linearRampToValueAtTime(vol, start + 0.04);
         gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
         osc.connect(lp);
         lp.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start(start);
         osc.stop(start + duration);
       }
-
       function triggerPercussion(start, isSnare) {
         let osc = audioCtx.createOscillator();
         let gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
-
-        if (!isSnare) {
-          osc.frequency.setValueAtTime(130, start);
-          osc.frequency.exponentialRampToValueAtTime(30, start + 0.12);
-          gain.gain.setValueAtTime(0.5, start);
-          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.14);
-          osc.start(start); osc.stop(start + 0.15);
-        } else {
-          osc.frequency.setValueAtTime(280, start);
-          gain.gain.setValueAtTime(0.2, start);
-          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.1);
-          osc.start(start); osc.stop(start + 0.1);
-        }
+        if(!isSnare){osc.frequency.setValueAtTime(130,start);osc.frequency.exponentialRampToValueAtTime(30,start+0.12);gain.gain.setValueAtTime(0.5,start);gain.gain.exponentialRampToValueAtTime(0.001,start+0.14);osc.start(start);osc.stop(start+0.15);}
+        else{osc.frequency.setValueAtTime(280,start);gain.gain.setValueAtTime(0.2,start);gain.gain.exponentialRampToValueAtTime(0.001,start+0.1);osc.start(start);osc.stop(start+0.1);}
       }
-
       const bpm = 92;
       const pulseBeat = 60 / bpm;
-
-      // Loop Execution Loop Tracking Core Arrays
-      for (let step = 0; step < 72; step++) {
-        let executionTime = now + (step * pulseBeat);
-        if (step % 4 === 0 || step % 4 === 2) triggerPercussion(executionTime, false);
-        if (step % 4 === 1 || step % 4 === 3) triggerPercussion(executionTime, true);
-
-        let baselineArray = [55, 55, 65, 48];
-        let selectedFreq = baselineArray[Math.floor(step / 4) % baselineArray.length];
-        createTone(selectedFreq, executionTime, pulseBeat * 0.9, 'sawtooth', 0.08);
-        createTone(selectedFreq * 2, executionTime, pulseBeat * 0.4, 'sine', 0.03);
+      for(let step=0;step<72;step++){
+        let executionTime=now+(step*pulseBeat);
+        if(step%4===0||step%4===2) triggerPercussion(executionTime,false);
+        if(step%4===1||step%4===3) triggerPercussion(executionTime,true);
+        let baselineArray=[55,55,65,48];
+        let selectedFreq=baselineArray[Math.floor(step/4)%baselineArray.length];
+        createTone(selectedFreq,executionTime,pulseBeat*0.9,'sawtooth',0.08);
+        createTone(selectedFreq*2,executionTime,pulseBeat*0.4,'sine',0.03);
       }
     }
 
-    // Dynamic Multi-Scene Pipeline Execution
-    const sceneTrackData = [
-      { id: 1, duration: 5500 },
-      { id: 2, duration: 6000 },
-      { id: 3, duration: 7500 },
-      { id: 4, duration: 7500 },
-      { id: 5, duration: 6000 },
-      { id: 6, duration: 7000 },
-      { id: 7, duration: 5500 }
-    ];
+    const sceneTrackData = [{id:1,duration:5500},{id:2,duration:6000},{id:3,duration:7500},{id:4,duration:7500},{id:5,duration:6000},{id:6,duration:7000},{id:7,duration:5500}];
 
     function runPipelineScene(index) {
-      if (index >= sceneTrackData.length) return;
-
-      const currentConfig = sceneTrackData[index];
-      const targetElement = document.getElementById('scene' + currentConfig.id);
-
-      document.querySelectorAll('.scene').forEach(sc => {
-        sc.classList.remove('active');
-        setTimeout(() => { if (!sc.classList.contains('active')) sc.style.display = 'none'; }, 1100);
-      });
-
-      setTimeout(() => {
-        targetElement.style.display = 'flex';
-        setTimeout(() => targetElement.classList.add('active'), 50);
-
-        let subText = localizations[currentLang].scenes[index].subtitle;
-        const subContainer = document.getElementById('subtitle');
-
-        subContainer.textContent = subText;
-        if (currentLang === 'ja') { subContainer.classList.add('ja-sub'); } else { subContainer.classList.remove('ja-sub'); }
+      if(index>=sceneTrackData.length) return;
+      const currentConfig=sceneTrackData[index];
+      const targetElement=document.getElementById('scene'+currentConfig.id);
+      document.querySelectorAll('.scene').forEach(sc=>{sc.classList.remove('active');setTimeout(()=>{if(!sc.classList.contains('active')) sc.style.display='none';},1100);});
+      setTimeout(()=>{
+        targetElement.style.display='flex';
+        setTimeout(()=>targetElement.classList.add('active'),50);
+        let subText=localizations[currentLang].scenes[index].subtitle;
+        const subContainer=document.getElementById('subtitle');
+        subContainer.textContent=subText;
+        if(currentLang==='ja') subContainer.classList.add('ja-sub'); else subContainer.classList.remove('ja-sub');
         subContainer.classList.add('show');
-
-        if (currentConfig.id === 1) {
-          setTimeout(() => {
-            document.getElementById('system-text').innerHTML = localizations[currentLang].sysSuccess;
-          }, 2600);
-        }
-      }, 1100);
+        if(currentConfig.id===1){setTimeout(()=>{document.getElementById('system-text').innerHTML=localizations[currentLang].sysSuccess;},2600);}
+      },1100);
     }
 
     function initiateTrailerLoop() {
-      document.getElementById('start-screen').style.opacity = '0';
-      setTimeout(() => document.getElementById('start-screen').style.display = 'none', 1000);
+      document.getElementById('start-screen').style.opacity='0';
+      setTimeout(()=>document.getElementById('start-screen').style.display='none',1000);
       document.getElementById('trailer').classList.add('active');
-      trailerActive = true;
-
-      try { buildCinematicAudioEngine(); } catch (err) { console.warn("Audio Context block error: ", err); }
-
-      currentSceneIdx = 0;
-      const initialTimestamp = Date.now();
-      const compositeDuration = sceneTrackData.reduce((acc, sc) => acc + sc.duration, 0);
-
+      trailerActive=true;
+      try{buildCinematicAudioEngine();}catch(err){console.warn("Audio error: ",err);}
+      currentSceneIdx=0;
+      const initialTimestamp=Date.now();
+      const compositeDuration=sceneTrackData.reduce((acc,sc)=>acc+sc.duration,0);
       runPipelineScene(0);
-
-      const animationHeartbeat = setInterval(() => {
-        if (!trailerActive) { clearInterval(animationHeartbeat); return; }
-
-        let timePassed = Date.now() - initialTimestamp;
-        let scalePercentage = Math.min((timePassed / compositeDuration) * 100, 100);
-        document.getElementById('progress-bar').style.width = scalePercentage + '%';
-
-        let accumulatedTime = 0;
-        for (let idx = 0; idx < sceneTrackData.length; idx++) {
-          accumulatedTime += sceneTrackData[idx].duration;
-          if (timePassed < accumulatedTime) {
-            if (idx !== currentSceneIdx) {
-              currentSceneIdx = idx;
-              runPipelineScene(idx);
-            }
-            break;
-          }
+      const animationHeartbeat=setInterval(()=>{
+        if(!trailerActive){clearInterval(animationHeartbeat);return;}
+        let timePassed=Date.now()-initialTimestamp;
+        let scalePercentage=Math.min((timePassed/compositeDuration)*100,100);
+        document.getElementById('progress-bar').style.width=scalePercentage+'%';
+        let accumulatedTime=0;
+        for(let idx=0;idx<sceneTrackData.length;idx++){
+          accumulatedTime+=sceneTrackData[idx].duration;
+          if(timePassed<accumulatedTime){if(idx!==currentSceneIdx){currentSceneIdx=idx;runPipelineScene(idx);}break;}
         }
-
-        if (timePassed >= compositeDuration) {
+        if(timePassed>=compositeDuration){
           clearInterval(animationHeartbeat);
-          trailerActive = false;
-          setTimeout(() => {
-            document.getElementById('subtitle').classList.remove('show');
-            // Trigger beautiful custom HTML terminal view overlay modal
-            document.getElementById('end-interface').classList.add('active');
-            cursor.style.display = "block"; // Make sure cursor is visible to interact
-          }, 1500);
+          trailerActive=false;
+          setTimeout(()=>{document.getElementById('subtitle').classList.remove('show');document.getElementById('end-interface').classList.add('active');},1500);
         }
-      }, 100);
+      },100);
     }
 
-    // Parent messaging routine if wrapped on main website canvas frames
     function handleExitRoute() {
-      if (isEmbedded) {
-        // Send window event to parent window to shut down frame container
-        window.parent.postMessage({ action: 'closeTrailer' }, '*');
-      } else {
-        document.getElementById('end-interface').classList.remove('active');
-        document.getElementById('trailer').classList.remove('active');
-        document.getElementById('start-screen').style.display = 'flex';
-        document.getElementById('start-screen').style.opacity = '1';
-        document.getElementById('progress-bar').style.width = '0%';
-      }
+      if(isEmbedded){window.parent.postMessage({action:'closeTrailer'},'*');}
+      else{document.getElementById('end-interface').classList.remove('active');document.getElementById('trailer').classList.remove('active');document.getElementById('start-screen').style.display='flex';document.getElementById('start-screen').style.opacity='1';document.getElementById('progress-bar').style.width='0%';}
     }
 
-    // Escape Control Break Sequences
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && trailerActive) {
-        trailerActive = false;
-        location.reload();
-      }
-    });
-
-    document.getElementById('start-btn').addEventListener('click', initiateTrailerLoop);
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&trailerActive){trailerActive=false;location.reload();}});
+    document.getElementById('start-btn').addEventListener('click',initiateTrailerLoop);
   </script>
 </body>
-
 </html>

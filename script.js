@@ -158,16 +158,23 @@
   const trailerThumb = document.getElementById('trailerThumb');
 
   const openTrailer = () => {
+    const scrollY = window.scrollY;
     trailerFrame.src = CONFIG.trailerSrc;
     trailerOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('body-locked');
+    document.body.classList.add('body-locked');
+    document.body.style.top = `-${scrollY}px`;
   };
 
   const closeTrailer = () => {
+    const scrollY = parseInt(document.body.style.top || '0') * -1 || 0;
     trailerOverlay.classList.remove('open');
-    // Stop the iframe by clearing src
     setTimeout(() => { trailerFrame.src = ''; }, 300);
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('body-locked');
+    document.body.classList.remove('body-locked');
+    document.body.style.top = '';
+    const unlockScroll = () => window.scrollTo(0, scrollY);
+    requestAnimationFrame(unlockScroll);
   };
 
   watchTrailerBtn?.addEventListener('click', openTrailer);
@@ -179,6 +186,11 @@
   trailerOverlay?.addEventListener('click', (e) => {
     if (e.target === trailerOverlay) closeTrailer();
   });
+
+  // Prevent background scrolling on mobile when trailer is open
+  trailerOverlay?.addEventListener('touchmove', (e) => {
+    if (trailerOverlay.classList.contains('open')) e.preventDefault();
+  }, { passive: false });
 
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
